@@ -256,7 +256,7 @@ class CT_Numbering(BaseOxmlElement):
     numbering.xml
     """
     num = ZeroOrMore('w:num', successors=('w:numIdMacAtCleanup',))
-    abstractNum = ZeroOrMore('w:abstractNum')
+    abstractNum = ZeroOrMore('w:abstractNum', successors=('w:num',))
 
     def add_num(self, abstractNum_id):
         """
