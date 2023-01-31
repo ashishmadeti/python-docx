@@ -7,7 +7,7 @@ Paragraph-related proxy types.
 from __future__ import (
     absolute_import, division, print_function, unicode_literals
 )
-
+from ..oxml.ns import qn
 from ..enum.style import WD_STYLE_TYPE
 from .parfmt import ParagraphFormat
 from .run import Run
@@ -111,6 +111,19 @@ class Paragraph(Parented):
             style_or_name, WD_STYLE_TYPE.PARAGRAPH
         )
         self._p.style = style_id
+
+    @property
+    def paraId(self):
+        """
+        String contained in w14:paraId attribute of paragaph,
+        or |None| if not present.
+        """
+        return self._p.paraId
+
+    @paraId.setter
+    def paraId(self, value):
+        self._p.set(qn('w14:paraId'), value)
+        # self._p.paraId = value
 
     @property
     def text(self):

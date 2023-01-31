@@ -40,6 +40,20 @@ class ParagraphFormat(ElementProxy):
         pPr.jc_val = value
 
     @property
+    def paraId(self):
+        """
+        String contained in w14:paraId attribute of paragaph,
+        or |None| if not present.
+        """
+        return self._element.paraId
+
+    @paraId.setter
+    def paraId(self, value):
+        # pPr = self._element.get_or_a/dd_pPr()
+        self._element.paraId = value
+        # pPr.jc_val = value
+
+    @property
     def first_line_indent(self):
         """
         |Length| value specifying the relative difference in indentation for

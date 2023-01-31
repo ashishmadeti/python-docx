@@ -5,8 +5,8 @@ Custom element classes related to paragraphs (CT_P).
 """
 
 from ..ns import qn
-from ..xmlchemy import BaseOxmlElement, OxmlElement, ZeroOrMore, ZeroOrOne
-
+from ..xmlchemy import BaseOxmlElement, OxmlElement, ZeroOrMore, ZeroOrOne, OptionalAttribute
+from docx.oxml.simpletypes import ST_LongHexNumber
 
 class CT_P(BaseOxmlElement):
     """
@@ -14,6 +14,7 @@ class CT_P(BaseOxmlElement):
     """
     pPr = ZeroOrOne('w:pPr')
     r = ZeroOrMore('w:r')
+    paraId = OptionalAttribute('w14:paraId', ST_LongHexNumber)
 
     def _insert_pPr(self, pPr):
         self.insert(0, pPr)
@@ -76,3 +77,15 @@ class CT_P(BaseOxmlElement):
     def style(self, style):
         pPr = self.get_or_add_pPr()
         pPr.style = style
+
+    @property
+    def paraId(self):
+        """
+        String contained in w14:paraId attribute of paragaph,
+        or |None| if not present.
+        """
+        return self.paraId
+
+    @paraId.setter
+    def paraId(self, value):
+        paraId = value
